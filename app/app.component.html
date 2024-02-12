@@ -1,0 +1,104 @@
+<!-- Side Navigation Menu -->
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Side navigation toggle button -->
+
+  <!-- Main navigation links -->
+  <div class="navbar-nav">
+    <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+    <a class="nav-link" routerLink="/trash" routerLinkActive="active">Trash</a>
+  </div>
+
+  <!-- Search box -->
+  <form class="form-inline ml-auto" (ngSubmit)="onSearch()">
+    <input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Search"
+      [(ngModel)]="searchTerm"
+      name="search"
+      aria-label="Search"
+    />
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+      Search
+    </button>
+  </form>
+</header>
+<!-- Main Content -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar Filters -->
+    <div class="col-md-2">
+      <h2>Filters</h2>
+      <div class="form-group">
+        <div class="checkbox">
+          <label><input type="checkbox" value="" /> Checkbox 1</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" value="" /> Checkbox 2</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" value="" /> Checkbox 3</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" value="" /> Checkbox 4</label>
+        </div>
+        <hr />
+        <div class="radio">
+          <label><input type="radio" name="stock" checked /> In stock</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="stock" /> Out of stock</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="col-md-10">
+      <div class="row">
+        <!-- Dummy Product Card -->
+        <div class="col-md-4" *ngFor="let product of filteredProducts">
+          <div class="card mb-4 shadow-sm">
+            <a [routerLink]="['/product-details', product.id]">
+              <img
+                class="card-img-top"
+                [src]="product.image"
+                alt="Product image"
+              />
+            </a>
+            <div class="card-body">
+              <p class="card-text">{{ product.title }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="toggleLikeProduct(product)"
+                  >
+                    Like
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="removeProduct(product)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Dummy Product Card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Action Button for Adding Products -->
+<a
+  routerLink="/add-product"
+  class="btn btn-primary btn-lg rounded-circle"
+  style="position: fixed; bottom: 30px; right: 30px; z-index: 999;"
+>
+  <i class="fa fa-plus"></i>
+</a>
